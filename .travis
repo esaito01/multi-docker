@@ -16,7 +16,7 @@ after_success: #build Prod images
   - docker build -t esaito01/multi-server ./server
   - docker build -t esaito01/multi-worker ./worker
 #log in to docker CLI from Travis platform
-  - echo "$Docker_password" | dockder login -u "Docker_ID" --password-stdin
+  - echo "$Docker_password" | dockder login -u "$Docker_ID" --password-stdin
 #Travis build Test image and test it
   - docker push esaito01/multi-client
   - docker push esaito01/multi-nginx
