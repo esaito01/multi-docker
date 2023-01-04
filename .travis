@@ -1,0 +1,16 @@
+sudo: required
+services:
+  -docker # spesify Docker dependency
+
+before_install: # build test imanges
+  - docker build -t esaito01/react-test -f ./client/Dockerfile.dev ./client
+
+script: #Run tests
+#  - docker run esaito01/react-test npm test -- --coverage
+   - docker run -e CI=true esaito01/react-test npm test
+
+after_success: #build Prod images
+  - docker build -t esaito01/multi-client ./client
+  - docker build -t esaito01/multi-nginx ./nginx
+  - docker build -t esaito01/multi-server ./server
+  - docker build -t esaito01/multi-worker ./worker
